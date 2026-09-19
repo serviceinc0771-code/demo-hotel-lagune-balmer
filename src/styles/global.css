@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ocean: #0B1C24;
+  --color-lagoon: #0F3D3E;
+  --color-foam: #F4EDE3;
+  --color-sand: #EADDC8;
+  --color-terracotta: #C8613F;
+  --color-terracotta-hover: #A84E32;
+  --color-price: #0F3D3E;
+  --color-border: #D9CBB6;
+  --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Fraunces", "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-sand text-ocean font-sans antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+main { padding-bottom: 5.5rem; }
+@media (min-width: 768px) {
+  main { padding-bottom: 2.5rem; }
+}
+
+/* Header: transparent over Accueil hero, solid after scroll / inner pages */
+.site-header {
+  @apply fixed top-0 z-40 w-full text-foam transition-[background-color,border-color,box-shadow] duration-300;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+.site-header.is-solid {
+  background: rgb(11 28 36 / 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom-color: rgb(217 203 182 / 0.16);
+  box-shadow: 0 8px 24px rgb(11 28 36 / 0.25);
+}
+
+/* Scroll reveal: fade + 12px */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Ken Burns — mobile hero still only */
+@keyframes ken-burns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+.ken-burns {
+  animation: ken-burns 22s ease-out forwards;
+  will-change: transform;
+}
+@media (min-width: 768px) {
+  .ken-burns {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+/* Sticky WA appears after 30% scroll */
+.wa-sticky {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.wa-sticky.is-shown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ken-burns {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+  .wa-sticky,
+  .site-header {
+    transition: none;
+  }
+}

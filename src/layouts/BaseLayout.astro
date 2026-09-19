@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import hotel from '../data/hotel.json';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = `${hotel.name} — ${hotel.tagline}`,
+} = Astro.props;
+
+const fullTitle = title.includes(hotel.name) ? title : `${title} | ${hotel.name}`;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = path === '/';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <title>{fullTitle}</title>
+  </head>
+  <body class:list={['flex min-h-screen flex-col', isHome && 'is-home']}>
+    <a
+      href="#contenu"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-foam focus:px-4 focus:py-2 focus:text-ocean focus:shadow"
+    >
+      Aller au contenu
+    </a>
+    <Header overlay={isHome} />
+    <main id="contenu" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton
+      variant="sticky"
+      label="WhatsApp"
+      message={hotel.whatsappPrefill}
+      class="md:bottom-6 md:right-6"
+    />
+    <script>
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const header = document.getElementById('site-header');
+      const sticky = document.getElementById('wa-sticky');
+      const video = document.querySelector('[data-hero-video]');
+
+      const onScroll = () => {
+        if (header?.dataset.overlay === 'true') {
+          header.classList.toggle('is-solid', window.scrollY > 24);
+        }
+        if (sticky) {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const ratio = max > 0 ? window.scrollY / max : 0;
+          sticky.classList.toggle('is-shown', ratio >= 0.3);
+        }
+      };
+
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      if (reduce) {
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+        if (video instanceof HTMLVideoElement) {
+          video.pause();
+          video.removeAttribute('autoplay');
+          video.removeAttribute('loop');
+        }
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+        );
+        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>
