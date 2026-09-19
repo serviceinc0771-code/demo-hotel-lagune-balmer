@@ -29,7 +29,7 @@
         "Ventilateur",
         "Serviettes"
       ],
-      "image": "/images/chambre-standard.jpg",
+      "image": "/images/chambre-standard.svg",
       "imageAlt": "Chambre d'hôtel simple avec lit double",
       "whatsappPrefill": "Bonjour, je souhaite réserver la Chambre Standard (25 000 FCFA/nuit) à l'Hôtel Lagune Balmer, San-Pédro. Quelles dates avez-vous disponibles ?"
     },
@@ -49,7 +49,7 @@
         "Vue lagune",
         "Salle d'eau"
       ],
-      "image": "/images/chambre-confort.jpg",
+      "image": "/images/chambre-confort.svg",
       "imageAlt": "Chambre confortable avec lit king et lumière naturelle",
       "whatsappPrefill": "Bonjour, je souhaite réserver la Chambre Confort (40 000 FCFA/nuit) à l'Hôtel Lagune Balmer, San-Pédro. Quelles dates avez-vous disponibles ?"
     },
@@ -69,7 +69,7 @@
         "Salle d'eau",
         "Espace bagages"
       ],
-      "image": "/images/chambre-famille.jpg",
+      "image": "/images/chambre-famille.svg",
       "imageAlt": "Grande chambre familiale avec plusieurs lits",
       "whatsappPrefill": "Bonjour, je souhaite réserver la Chambre Famille (55 000 FCFA/nuit) à l'Hôtel Lagune Balmer, San-Pédro. Quelles dates avez-vous disponibles ?"
     }
