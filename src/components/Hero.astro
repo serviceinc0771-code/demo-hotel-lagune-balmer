@@ -1,0 +1,77 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import WhatsAppButton from './WhatsAppButton.astro';
+import hotel from '../data/hotel.json';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  image?: string;
+  showCta?: boolean;
+}
+
+const {
+  title = 'San-Pédro. La lagune, puis le silence de la chambre.',
+  subtitle,
+  image = '/images/hero.jpg',
+  showCta = true,
+} = Astro.props;
+
+const minPrice = Math.min(...hotel.rooms.map((r) => r.price));
+const priceFrom = `Dès ${minPrice.toLocaleString('fr-FR')} F/nuit`;
+const hasVideo = fs.existsSync(path.resolve('public/videos/hero.mp4'));
+---
+
+<section class="relative min-h-[92svh] overflow-hidden bg-ocean text-foam md:min-h-screen">
+  <div class="absolute inset-0 overflow-hidden">
+    <!-- Mobile: still + Ken Burns. Desktop: video if present, else still. Poster always. -->
+    <img
+      src={image}
+      alt=""
+      width="1920"
+      height="1280"
+      class:list={['absolute inset-0 h-full w-full object-cover ken-burns', hasVideo && 'md:hidden']}
+      fetchpriority="high"
+    />
+    {hasVideo && (
+      <video
+        class="absolute inset-0 hidden h-full w-full object-cover md:block"
+        poster={image}
+        muted
+        loop
+        playsinline
+        autoplay
+        preload="metadata"
+        data-hero-video
+      >
+        <source src="/videos/hero.mp4" type="video/mp4" />
+      </video>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-ocean via-ocean/55 to-ocean/25"></div>
+    <div class="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-ocean/70 to-transparent"></div>
+  </div>
+
+  <div class="relative mx-auto flex min-h-[92svh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-20 md:min-h-screen md:pb-24">
+    <p class="text-xs font-medium uppercase tracking-[0.28em] text-sand/90">{hotel.city}</p>
+    <h1 class="font-display mt-4 max-w-3xl text-4xl leading-[1.15] text-foam sm:text-5xl lg:text-6xl">
+      {title}
+    </h1>
+    {subtitle ? (
+      <p class="mt-4 max-w-xl text-lg text-foam/85">{subtitle}</p>
+    ) : (
+      <p class="mt-5 font-display text-2xl text-sand sm:text-3xl">{priceFrom}</p>
+    )}
+    {showCta && (
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <WhatsAppButton label="Réserver sur WhatsApp" message={hotel.whatsappPrefill} />
+        <a
+          href="/chambres"
+          class="inline-flex h-[52px] items-center justify-center rounded-full border border-foam/35 px-6 font-semibold text-foam transition hover:bg-white/10"
+        >
+          Voir les chambres
+        </a>
+      </div>
+    )}
+  </div>
+</section>

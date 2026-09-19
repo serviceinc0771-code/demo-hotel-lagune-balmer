@@ -1,0 +1,61 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import hotel from '../data/hotel.json';
+
+interface Room {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  capacity: string;
+  size: string;
+  description: string;
+  amenities: string[];
+  image: string;
+  imageAlt: string;
+  whatsappPrefill?: string;
+}
+
+interface Props {
+  room: Room;
+}
+
+const { room } = Astro.props;
+const priceNumber = room.price.toLocaleString('fr-FR');
+const priceLabel = `${priceNumber} ${room.currency}`;
+const message =
+  room.whatsappPrefill ||
+  `Bonjour, je souhaite réserver la ${room.name} (${priceLabel}/nuit) à ${hotel.name}, San-Pédro. Quelles dates avez-vous disponibles ?`;
+---
+
+<article class="flex flex-col overflow-hidden rounded-2xl border border-border bg-foam shadow-[0_12px_40px_rgb(11_28_36_/_0.08)]">
+  <div class="aspect-[4/3] overflow-hidden bg-sand">
+    <img
+      src={room.image}
+      alt={room.imageAlt}
+      width="800"
+      height="600"
+      loading="lazy"
+      decoding="async"
+      class="h-full w-full object-cover"
+    />
+  </div>
+  <div class="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+    <h3 class="font-display text-xl text-ocean sm:text-2xl">{room.name}</h3>
+    <p class="text-sm text-ocean/60">{room.capacity} · {room.size}</p>
+    <p class="font-display leading-none text-price">
+      <span class="text-5xl font-semibold tracking-tight sm:text-6xl">{priceNumber}</span>
+      <span class="ml-1.5 text-lg font-medium">{room.currency}</span>
+    </p>
+    <p class="text-sm text-ocean/55">/ nuit · tarif indicatif</p>
+    <p class="leading-relaxed text-ocean/85">{room.description}</p>
+    <ul class="mt-1 flex flex-wrap gap-2">
+      {room.amenities.map((a) => (
+        <li class="rounded-full border border-border bg-sand/60 px-3 py-1 text-xs font-medium text-lagoon">{a}</li>
+      ))}
+    </ul>
+    <div class="mt-auto pt-4">
+      <WhatsAppButton variant="block" label={`Réserver — ${room.name}`} message={message} />
+    </div>
+  </div>
+</article>
