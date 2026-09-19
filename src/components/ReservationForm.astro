@@ -1,0 +1,111 @@
+---
+import hotel from '../data/hotel.json';
+---
+
+<form
+  id="reservation-form"
+  class="space-y-4 rounded-2xl border border-border bg-foam p-6 shadow-[0_12px_40px_rgb(11_28_36_/_0.06)]"
+  data-whatsapp={hotel.whatsapp}
+  data-hotel={hotel.name}
+>
+  <p class="text-sm text-ocean/65">
+    Remplissez le formulaire : un message WhatsApp s’ouvrira avec vos infos. Aucune donnée n’est envoyée à un serveur.
+  </p>
+
+  <div>
+    <label for="res-name" class="mb-1 block text-sm font-medium text-ocean">Votre nom</label>
+    <input
+      id="res-name"
+      name="name"
+      type="text"
+      required
+      autocomplete="name"
+      class="w-full rounded-xl border border-border bg-sand/50 px-4 py-2.5 text-ocean outline-none focus:border-lagoon focus:ring-2 focus:ring-lagoon/20"
+      placeholder="Ex. Aya Kouassi"
+    />
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label for="res-arrivee" class="mb-1 block text-sm font-medium text-ocean">Arrivée</label>
+      <input
+        id="res-arrivee"
+        name="arrivee"
+        type="date"
+        required
+        class="w-full rounded-xl border border-border bg-sand/50 px-4 py-2.5 text-ocean outline-none focus:border-lagoon focus:ring-2 focus:ring-lagoon/20"
+      />
+    </div>
+    <div>
+      <label for="res-depart" class="mb-1 block text-sm font-medium text-ocean">Départ</label>
+      <input
+        id="res-depart"
+        name="depart"
+        type="date"
+        required
+        class="w-full rounded-xl border border-border bg-sand/50 px-4 py-2.5 text-ocean outline-none focus:border-lagoon focus:ring-2 focus:ring-lagoon/20"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="res-room" class="mb-1 block text-sm font-medium text-ocean">Chambre souhaitée</label>
+    <select
+      id="res-room"
+      name="room"
+      required
+      class="w-full rounded-xl border border-border bg-sand/50 px-4 py-2.5 text-ocean outline-none focus:border-lagoon focus:ring-2 focus:ring-lagoon/20"
+    >
+      <option value="">Choisir…</option>
+      {hotel.rooms.map((room) => (
+        <option value={room.name}>
+          {room.name} — {room.price.toLocaleString('fr-FR')} {room.currency}/nuit
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <div>
+    <label for="res-note" class="mb-1 block text-sm font-medium text-ocean">Message (optionnel)</label>
+    <textarea
+      id="res-note"
+      name="note"
+      rows="3"
+      class="w-full rounded-xl border border-border bg-sand/50 px-4 py-2.5 text-ocean outline-none focus:border-lagoon focus:ring-2 focus:ring-lagoon/20"
+      placeholder="Nombre de personnes, arrivée tardive…"
+    ></textarea>
+  </div>
+
+  <button
+    type="submit"
+    class="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-terracotta px-6 font-semibold text-foam shadow-md transition hover:bg-terracotta-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2"
+  >
+    Envoyer sur WhatsApp
+  </button>
+</form>
+
+<script>
+  const form = document.getElementById('reservation-form');
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('name') || '').trim();
+      const arrivee = String(data.get('arrivee') || '');
+      const depart = String(data.get('depart') || '');
+      const room = String(data.get('room') || '');
+      const note = String(data.get('note') || '').trim();
+      const hotelName = form.dataset.hotel || 'Hôtel Lagune Balmer';
+      const digits = form.dataset.whatsapp || '';
+
+      let text = `Bonjour, je souhaite réserver à ${hotelName}.\n`;
+      text += `Nom : ${name}\n`;
+      text += `Chambre : ${room}\n`;
+      text += `Arrivée : ${arrivee}\n`;
+      text += `Départ : ${depart}`;
+      if (note) text += `\nMessage : ${note}`;
+
+      window.open(`https://wa.me/${digits}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+    });
+  }
+</script>

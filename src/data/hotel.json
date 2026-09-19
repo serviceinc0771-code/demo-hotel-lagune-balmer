@@ -1,0 +1,121 @@
+{
+  "name": "Hôtel Lagune Balmer",
+  "tagline": "Votre halte au bord de la lagune, à San-Pédro",
+  "city": "San-Pédro",
+  "country": "Côte d'Ivoire",
+  "address": "Quartier Balmer, près de la lagune — San-Pédro, Côte d'Ivoire",
+  "phone": "+225 07 00 00 00 00",
+  "phoneDisplay": "+225 07 00 00 00 00",
+  "whatsapp": "2250700000000",
+  "email": "contact@lagune-balmer.demo",
+  "hours": "Réception ouverte tous les jours, 7h – 22h",
+  "checkIn": "14h00",
+  "checkOut": "12h00",
+  "whatsappPrefill": "Bonjour, je souhaite des informations sur l'Hôtel Lagune Balmer à San-Pédro.",
+  "demoNotice": "Ceci est une DÉMONSTRATION. L'établissement « Hôtel Lagune Balmer » est fictif. Les numéros et tarifs sont des exemples pédagogiques.",
+  "rooms": [
+    {
+      "id": "standard",
+      "name": "Chambre Standard",
+      "price": 25000,
+      "currency": "FCFA",
+      "capacity": "1–2 personnes",
+      "size": "Environ 18 m²",
+      "description": "Chambre simple et propre, ventilée, idéale pour un séjour court. Lit double, salle d'eau privative, Wi-Fi.",
+      "amenities": [
+        "Lit double",
+        "Salle d'eau",
+        "Wi-Fi",
+        "Ventilateur",
+        "Serviettes"
+      ],
+      "image": "/images/chambre-standard.jpg",
+      "imageAlt": "Chambre d'hôtel simple avec lit double",
+      "whatsappPrefill": "Bonjour, je souhaite réserver la Chambre Standard (25 000 FCFA/nuit) à l'Hôtel Lagune Balmer, San-Pédro. Quelles dates avez-vous disponibles ?"
+    },
+    {
+      "id": "confort",
+      "name": "Chambre Confort",
+      "price": 40000,
+      "currency": "FCFA",
+      "capacity": "2 personnes",
+      "size": "Environ 25 m²",
+      "description": "Plus d'espace et de fraîcheur : climatisation, bureau, vue partielle sur la lagune. Parfaite pour un voyage d'affaires ou en couple.",
+      "amenities": [
+        "Lit king",
+        "Climatisation",
+        "Wi-Fi",
+        "Bureau",
+        "Vue lagune",
+        "Salle d'eau"
+      ],
+      "image": "/images/chambre-confort.jpg",
+      "imageAlt": "Chambre confortable avec lit king et lumière naturelle",
+      "whatsappPrefill": "Bonjour, je souhaite réserver la Chambre Confort (40 000 FCFA/nuit) à l'Hôtel Lagune Balmer, San-Pédro. Quelles dates avez-vous disponibles ?"
+    },
+    {
+      "id": "famille",
+      "name": "Chambre Famille",
+      "price": 55000,
+      "currency": "FCFA",
+      "capacity": "3–4 personnes",
+      "size": "Environ 35 m²",
+      "description": "Grand espace pour voyager en famille ou entre amis. Deux lits, coin salon, climatisation. Proche de la terrasse commune.",
+      "amenities": [
+        "2 lits",
+        "Climatisation",
+        "Wi-Fi",
+        "Coin salon",
+        "Salle d'eau",
+        "Espace bagages"
+      ],
+      "image": "/images/chambre-famille.jpg",
+      "imageAlt": "Grande chambre familiale avec plusieurs lits",
+      "whatsappPrefill": "Bonjour, je souhaite réserver la Chambre Famille (55 000 FCFA/nuit) à l'Hôtel Lagune Balmer, San-Pédro. Quelles dates avez-vous disponibles ?"
+    }
+  ],
+  "amenities": [
+    {
+      "title": "Petit-déjeuner",
+      "text": "Sur demande, 7h–10h (supplément)"
+    },
+    {
+      "title": "Wi-Fi",
+      "text": "Gratuit dans tout l'établissement"
+    },
+    {
+      "title": "Parking",
+      "text": "Places gratuites devant l'hôtel"
+    },
+    {
+      "title": "Terrasse lagune",
+      "text": "Espace commun ombragé"
+    },
+    {
+      "title": "Sécurité",
+      "text": "Gardiennage nocturne"
+    },
+    {
+      "title": "Lessive",
+      "text": "Service express sur demande"
+    }
+  ],
+  "practical": [
+    {
+      "title": "Arrivée / Départ",
+      "text": "Check-in à 14h, check-out à 12h. Arrivée tardive possible sur WhatsApp."
+    },
+    {
+      "title": "Paiement",
+      "text": "Espèces (FCFA), Mobile Money (Orange / MTN / Wave) — à confirmer à la réservation."
+    },
+    {
+      "title": "Accès",
+      "text": "Depuis le centre de San-Pédro : environ 10–15 min en taxi. Indiquez « Quartier Balmer, près de la lagune »."
+    },
+    {
+      "title": "Langues",
+      "text": "Français, un peu d'anglais à la réception."
+    }
+  ]
+}
